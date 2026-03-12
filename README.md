@@ -70,6 +70,13 @@ You'll also need udev rules for device access (see Troubleshooting section).
 
 ### 2. Install the Plugin
 
+**From wheel (recommended):**
+
+Download the latest `.whl` file from the [releases page](https://github.com/uermel/chimerax-spacemouse/releases), then in ChimeraX:
+```
+toolshed install /Users/username/Downloads/ChimeraX_SpaceMouse-0.1.0-py3-none-any.whl
+```
+
 **From source (development):**
 ```bash
 cd /path/to/chimerax-spacemouse

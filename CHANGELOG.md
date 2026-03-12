@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/uermel/ChimeraX-SpaceMouse/compare/chimerax-spacemouse-v0.2.0...chimerax-spacemouse-v0.2.1) (2026-03-12)
+
+
+### Documentation
+
+* Add wheel install option. ([#3](https://github.com/uermel/ChimeraX-SpaceMouse/issues/3)) ([2151650](https://github.com/uermel/ChimeraX-SpaceMouse/commit/21516506cbb472062b047d1050d607643d1f9638))
+
 ## [0.2.0](https://github.com/uermel/ChimeraX-SpaceMouse/compare/chimerax-spacemouse-v0.1.0...chimerax-spacemouse-v0.2.0) (2026-03-12)
 
 

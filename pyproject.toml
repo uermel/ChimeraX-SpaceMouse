@@ -1,0 +1,116 @@
+[build-system]
+requires = ["setuptools>=45"]
+
+[project]
+name = "ChimeraX-SpaceMouse"
+version = "0.1.0"
+dynamic = ["classifiers", "requires-python"]
+dependencies = [
+    "ChimeraX-Core>=1.9",
+    "pyspacemouse>=1.0.0",
+]
+
+authors = [
+  {name = "Utz H. Ermel", email = "utz@ermel.me"},
+]
+description = "SpaceMouse 6DoF controller support for ChimeraX."
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["spacemouse", "3dconnexion", "6dof", "controller", "input", "chimerax"]
+
+[project.urls]
+Repository = "https://github.com/uermel/chimerax-spacemouse.git"
+Issues = "https://github.com/uermel/chimerax-spacemouse/issues"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "ipython",
+    "pre-commit",
+    "ruff",
+]
+
+[chimerax]
+category = "Input Devices"
+package = "chimerax.spacemouse"
+min-session-version = "1"
+max-session-version = "1"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+]
+
+[chimerax.tool."SpaceMouse"]
+tool_name = "SpaceMouse"
+category = "Input Devices"
+synopsis = "Control ChimeraX with a 3DConnexion SpaceMouse."
+
+[chimerax.command.spacemouse]
+category = "Input Devices"
+synopsis = "SpaceMouse control commands."
+
+[chimerax.command."spacemouse start"]
+category = "Input Devices"
+synopsis = "Start SpaceMouse control."
+
+[chimerax.command."spacemouse stop"]
+category = "Input Devices"
+synopsis = "Stop SpaceMouse control."
+
+[chimerax.command."spacemouse mode"]
+category = "Input Devices"
+synopsis = "Set SpaceMouse control mode (view or model)."
+
+[chimerax.command."spacemouse sensitivity"]
+category = "Input Devices"
+synopsis = "Set SpaceMouse sensitivity."
+
+[chimerax.command."spacemouse deadzone"]
+category = "Input Devices"
+synopsis = "Set SpaceMouse dead zone."
+
+[chimerax.command."spacemouse invert"]
+category = "Input Devices"
+synopsis = "Invert a SpaceMouse axis."
+
+[chimerax.command."spacemouse bind"]
+category = "Input Devices"
+synopsis = "Bind SpaceMouse button to ChimeraX command."
+
+[chimerax.command."spacemouse unbind"]
+category = "Input Devices"
+synopsis = "Remove SpaceMouse button binding."
+
+[chimerax.command."spacemouse settings"]
+category = "Input Devices"
+synopsis = "Open SpaceMouse settings dialog."
+
+[tool.black]
+line-length = 120
+target_version = ['py311']
+
+[tool.ruff]
+select = [
+    "E", "W",  # pycodestyle
+    "F",  # pyflakes
+    "B",  # bugbear
+    "I",  # isort
+    "N",  # pep8-naming
+    "COM",  # commas
+    "C4",  # comprehensions
+    "SIM",  # simplify
+]
+ignore = [
+    "N802",  # Function name should be lowercase
+    "N999",  # Invalid module name
+    "E501",  # line too long
+    "C408",  # rewrite empty built-ins as literals
+]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.isort]
+known-first-party = ["chimerax.spacemouse"]
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"

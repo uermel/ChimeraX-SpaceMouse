@@ -287,10 +287,7 @@ class SpaceMouseConfig:
         str or None
             The ChimeraX command mapped to the button.
         """
-        if isinstance(button, int):
-            button_name = self.button_to_name(button)
-        else:
-            button_name = button.upper()
+        button_name = self.button_to_name(button) if isinstance(button, int) else button.upper()
         return self._config["button_mappings"].get(button_name)
 
     def set_button_command(self, button_name, command):

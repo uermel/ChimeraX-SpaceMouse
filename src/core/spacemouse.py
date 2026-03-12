@@ -1,5 +1,6 @@
 # vim: set expandtab shiftwidth=4 softtabstop=4:
 
+import contextlib
 import os
 import sys
 from pathlib import Path
@@ -143,6 +144,10 @@ class SpaceMouseManager:
         # Previous button state for edge detection
         self._prev_buttons = {}
 
+        # Frame throttling for model mode (reduces expensive model updates)
+        self._model_frame_counter = 0
+        self._model_update_interval = 3  # Apply model transforms every N frames
+
     @property
     def view_action(self):
         """Get the view action handler (lazy initialization).
@@ -209,9 +214,7 @@ class SpaceMouseManager:
                 else:
                     self.session.logger.warning(f"SpaceMouse: {e}")
             elif "No connected" in error_str or "not found" in error_str.lower():
-                self.session.logger.warning(
-                    "SpaceMouse: No device found. Please ensure your SpaceMouse is connected."
-                )
+                self.session.logger.warning("SpaceMouse: No device found. Please ensure your SpaceMouse is connected.")
             else:
                 self.session.logger.warning(f"SpaceMouse: {e}")
             self.device = None
@@ -243,10 +246,8 @@ class SpaceMouseManager:
         self._running = False
 
         if self.device is not None:
-            try:
+            with contextlib.suppress(Exception):
                 self.device.close()
-            except Exception:
-                pass  # Ignore errors during cleanup
             self.device = None
             self.device_name = None
 
@@ -264,11 +265,19 @@ class SpaceMouseManager:
 
             # Check if we got valid data (t >= 0 indicates valid reading)
             if state.t >= 0:
-                # Handle button presses
+                # Handle button presses (always process for responsiveness)
                 self._handle_buttons(state)
 
                 # Process 6DoF input
-                self._process_input(state)
+                if self.mode == ControlMode.VIEW:
+                    # View mode: apply every frame (camera updates are lightweight)
+                    self._process_input(state)
+                else:
+                    # Model mode: throttle to reduce expensive model updates
+                    self._model_frame_counter += 1
+                    if self._model_frame_counter >= self._model_update_interval:
+                        self._model_frame_counter = 0
+                        self._process_input(state)
 
         except Exception as e:
             # Device may have been disconnected
@@ -365,7 +374,7 @@ class SpaceMouseManager:
                         self._run_command(command)
 
         # Store current state for next frame
-        self._prev_buttons = {i: b for i, b in enumerate(buttons)}
+        self._prev_buttons = dict(enumerate(buttons))
 
     def _run_command(self, command):
         """Execute a ChimeraX command.
@@ -396,10 +405,8 @@ class SpaceMouseManager:
         """Handle device disconnection."""
         self._running = False
         if self.device is not None:
-            try:
+            with contextlib.suppress(Exception):
                 self.device.close()
-            except Exception:
-                pass
             self.device = None
             self.device_name = None
         self._notify_status_change()

@@ -135,13 +135,15 @@ class SettingsDialog(QDialog):
         mode_layout = QFormLayout()
 
         self.mode_toggle_combo = QComboBox()
-        self.mode_toggle_combo.addItems([
-            "LEFT (Button 0)",
-            "RIGHT (Button 1)",
-            "TOP (Button 2)",
-            "BOTTOM (Button 3)",
-            "None (Disabled)",
-        ])
+        self.mode_toggle_combo.addItems(
+            [
+                "LEFT (Button 0)",
+                "RIGHT (Button 1)",
+                "TOP (Button 2)",
+                "BOTTOM (Button 3)",
+                "None (Disabled)",
+            ],
+        )
         mode_layout.addRow("Toggle Button:", self.mode_toggle_combo)
 
         mode_group.setLayout(mode_layout)
@@ -237,23 +239,25 @@ class SettingsDialog(QDialog):
 
         # Button selector combo
         button_combo = QComboBox()
-        button_combo.addItems([
-            "LEFT",
-            "RIGHT",
-            "TOP",
-            "BOTTOM",
-            "FRONT",
-            "REAR",
-            "FIT",
-            "MENU",
-            "ALT",
-            "SPIN",
-            "PLUS",
-            "MINUS",
-            "ESC",
-            "CTRL",
-            "LOCK",
-        ])
+        button_combo.addItems(
+            [
+                "LEFT",
+                "RIGHT",
+                "TOP",
+                "BOTTOM",
+                "FRONT",
+                "REAR",
+                "FIT",
+                "MENU",
+                "ALT",
+                "SPIN",
+                "PLUS",
+                "MINUS",
+                "ESC",
+                "CTRL",
+                "LOCK",
+            ],
+        )
         self.mapping_table.setCellWidget(row, 0, button_combo)
 
         # Command input

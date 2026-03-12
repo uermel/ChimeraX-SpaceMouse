@@ -3,6 +3,10 @@
 A ChimeraX plugin that enables 3DConnexion SpaceMouse 6DoF input for manipulating the 3D view and models.
 Useful in combination with spatial reality displays or while recording movies.
 
+> [!NOTE]
+> This is an experimental plugin. There is built-in support for 3D Connexion hardware in ChimeraX via the [command](https://www.cgl.ucsf.edu/chimerax/docs/user/commands/device.html#snav) `device snav on`. ChimeraX-SpaceMouse uses a different backend library that is not delivered with the plugin, but can be installed independently.
+
+
 ## Features
 
 - **6 Degrees of Freedom**: Natural translation (X/Y/Z) and rotation (roll/pitch/yaw) control
